@@ -1,3 +1,6 @@
+
+### Shell environment set up for ACRN Yocto builds. ###
+
 Supported machines:
     apl-nuc
 
@@ -8,3 +11,4 @@ Common targets are:
 
 You can run bitbake as follows to build a specific image:
     MACHINE=apl-nuc bitbake sos-image-weston
+
