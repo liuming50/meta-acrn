@@ -1,0 +1,31 @@
+From e0759fe148701b9eca790132c7d4e6a25283e8c2 Mon Sep 17 00:00:00 2001
+From: Ming Liu <liu.ming50@gmail.com>
+Date: Tue, 9 Oct 2018 16:00:34 +0200
+Subject: [PATCH] Use ncursesw instead of ncurses
+
+This fixes a problem as follows:
+| AttributeError: '_curses.curses window' object has no attribute 'get_wch'
+
+Upstream-Status: Inappropriate [Embedded Specific]
+
+Signed-off-by: Ming Liu <liu.ming50@gmail.com>
+---
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 88a2301..6369336 100644
+--- a/setup.py
++++ b/setup.py
+@@ -715,7 +715,7 @@ class PyBuildExt(build_ext):
+         # readline
+         do_readline = self.compiler.find_library_file(lib_dirs, 'readline')
+         readline_termcap_library = ""
+-        curses_library = "ncurses"
++        curses_library = "ncursesw"
+ 
+         if host_platform == 'darwin':
+             os_release = int(os.uname()[2].split('.')[0])
+-- 
+2.7.4
+
