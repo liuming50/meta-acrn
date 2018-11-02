@@ -25,7 +25,7 @@ revision: HEAD
 
 # Getting started
 
-[github](https://github.com/liuming50/meta-acrn-manifest/blob/master/README.md)
+[meta-acrn-manifest README.md](https://github.com/liuming50/meta-acrn-manifest/blob/master/README.md)
 
 
 
@@ -37,7 +37,7 @@ The following undergo regular basic testing with their respective MACHINE types.
 
 # Submitting patches
 
-You are encouraged to fork the mirror on [github](https://github.com/liuming50/meta-acrn.git)
+You are encouraged to fork the mirror on [meta-acrn](https://github.com/liuming50/meta-acrn.git)
 to share your patches.
 
 Layer Maintainer: [Ming Liu](<mailto:liu.ming50@gmail.com>)
