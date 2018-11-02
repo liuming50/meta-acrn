@@ -16,7 +16,7 @@ else
 fi
 
 TOP_DIR=$(realpath $THIS_SCRIPT_DIR)
-TEMPLATECONF=$TOP_DIR/meta-acrn/conf
+TEMPLATECONF=$TOP_DIR/sources/meta-acrn/conf
 
 . $TOP_DIR/sources/poky/oe-init-build-env $1
 . $TOP_DIR/sources/bitbake-bash-completion/bitbake
