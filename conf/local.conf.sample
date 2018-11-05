@@ -245,3 +245,7 @@ PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
 # track the version of this file when it was generated. This can safely be ignored if
 # this doesn't mean anything to you.
 CONF_VERSION = "1"
+
+# Host tools needed by Celadon Android build
+HOSTTOOLS_CELADON ?= ""
+HOSTTOOLS += "${HOSTTOOLS_CELADON}"
