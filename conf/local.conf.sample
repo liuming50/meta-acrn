@@ -249,3 +249,6 @@ CONF_VERSION = "1"
 # Host tools needed by Celadon Android build
 HOSTTOOLS_CELADON ?= ""
 HOSTTOOLS += "${HOSTTOOLS_CELADON}"
+
+# Use screen as the default terminal
+OE_TERMINAL = "screen"
