@@ -14,6 +14,7 @@ CORE_IMAGE_EXTRA_INSTALL_append = " \
 "
 
 do_rootfs[depends] += "${@' '.join([i + ':do_image_complete' for i in d.getVar('ACRN_LINUX_UOS_IMAGES').split()])}"
+do_rootfs[depends] += "${@' '.join([i + ':do_deploy' for i in d.getVar('ACRN_ANDROID_UOS_IMAGES').split()])}"
 do_rootfs[depends] += "${@['linux-acrn-uos:do_deploy', ''][d.getVar('ACRN_LINUX_UOS_IMAGES') == '']}"
 
 bundle_guest_images () {
@@ -33,9 +34,9 @@ bundle_guest_images () {
     done
 
     # Handle Android UOS images
-    # FIXME: TO BE IMPLEMENTED
     for image_name in ${ACRN_ANDROID_UOS_IMAGES}; do
-        :
+        image=${DEPLOY_DIR_IMAGE}/$image_name-${MACHINE}.img
+        cp $image ${IMAGE_ROOTFS}${datadir}/acrn/images/android/$image_name.img
     done
 
     # Handle RTOS UOS images
