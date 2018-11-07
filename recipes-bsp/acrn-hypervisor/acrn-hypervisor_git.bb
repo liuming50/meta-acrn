@@ -36,9 +36,9 @@ do_install () {
 
 do_deploy () {
     if [ "${ACRN_PLATFORM}" = "uefi" ]; then
-        install -m 0755 ${D}${libdir}/acrn/acrn.efi ${DEPLOYDIR}/acrn${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi
-        ln -sf acrn${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi ${DEPLOYDIR}/acrn${ACRN_UEFI_IMAGE_NAME}-${MACHINE}.efi
-        ln -sf acrn${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi ${DEPLOYDIR}/acrn${ACRN_UEFI_IMAGE_NAME}.efi
+        install -m 0755 ${D}${libdir}/acrn/acrn.efi ${DEPLOYDIR}/acrn-${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi
+        ln -sf acrn-${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi ${DEPLOYDIR}/acrn-${ACRN_UEFI_IMAGE_NAME}-${MACHINE}.efi
+        ln -sf acrn-${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi ${DEPLOYDIR}/acrn-${ACRN_UEFI_IMAGE_NAME}.efi
     fi
 }
 do_deploy[vardepsexclude] = "DATETIME"

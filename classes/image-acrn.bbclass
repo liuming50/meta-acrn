@@ -9,7 +9,7 @@ mkimage_uefi_acrn () {
 
     # Add acrn.efi as the default efi image
     wic cp \
-        ${DEPLOY_DIR_IMAGE}/acrn${ACRN_UEFI_IMAGE_NAME}.efi \
+        ${DEPLOY_DIR_IMAGE}/acrn-${ACRN_UEFI_IMAGE_NAME}.efi \
         ${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.wic:1/EFI/BOOT/${ACRN_UEFI_IMAGE_NAME}.efi \
         --native-sysroot ${STAGING_DIR_NATIVE}
 
