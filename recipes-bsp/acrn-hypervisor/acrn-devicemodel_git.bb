@@ -4,11 +4,11 @@ SRC_URI += "file://acrn-guest@.service \
             file://launch_uos.sh \
            "
 
-inherit systemd distro_features_check
+inherit python3native systemd distro_features_check
 
 REQUIRED_DISTRO_FEATURES = "systemd"
 
-DEPENDS = "systemd openssl libpciaccess acrn-tools"
+DEPENDS = "systemd openssl libpciaccess acrn-tools python3-kconfiglib-native"
 
 S = "${WORKDIR}/git/devicemodel"
 
