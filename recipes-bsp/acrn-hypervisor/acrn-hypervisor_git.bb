@@ -17,7 +17,7 @@ FILES_${PN} += "${libdir}/acrn/* ${datadir}/acrn/*"
 
 do_configure_prepend () {
     cd ${S}
-    oe_runmake defconfig PLATFORM=${ACRN_PLATFORM}
+    oe_runmake defconfig BOARD=${MACHINE}
 
     if [ "${ACRN_PLATFORM}" = "uefi" ]; then
         sed -i -e 's#^\(CONFIG_UEFI_OS_LOADER_NAME=\).*$#\1\"\\\\EFI\\\\${ACRN_UEFI_OS_LOADER_DIR}\\\\${ACRN_UEFI_OS_LOADER_NAME}.efi\"#' ${B}/.config
