@@ -10,8 +10,8 @@ LIC_FILES_CHKSUM = "file://${S}/../LICENSE;md5=5732af37bf18525ed9d2b16985054901"
 
 SRC_URI = "git://github.com/projectacrn/acrn-hypervisor.git"
 
-SRCREV = "8b64e336afd5c0f019175ea482e934a3d995ed8e"
-PV = "0.4+git${SRCPV}"
+SRCREV = "de8d85753eff73ce30bd4c5f8d98438b1a667696"
+PV = "0.5+git${SRCPV}"
 
 UPSTREAM_CHECK_COMMITS = "1"
 

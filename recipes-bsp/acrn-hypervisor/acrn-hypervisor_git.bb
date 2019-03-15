@@ -5,7 +5,7 @@ inherit python3native cml1 deploy
 DEPENDS = "python3-pip-native python3-kconfiglib-native gnu-efi"
 
 S = "${WORKDIR}/git/hypervisor"
-B = "${S}/build"
+B = "${S}/../build"
 
 EXTRA_OEMAKE += "SYSROOT=${STAGING_DIR_TARGET}"
 
@@ -15,23 +15,28 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 FILES_${PN} += "${libdir}/acrn/* ${datadir}/acrn/*"
 
-do_configure_prepend () {
-    cd ${S}
-    oe_runmake defconfig BOARD=${MACHINE}
+USED_ACRN_CONFIG = "usedacrnconfig"
+
+do_configure () {
+    cd ${S}/arch/x86/configs/
+    cp ${MACHINE}.config ${USED_ACRN_CONFIG}.config
+#    ln --force -s ${MACHINE} ${USED_ACRN_CONFIG}
 
     if [ "${ACRN_PLATFORM}" = "uefi" ]; then
-        sed -i -e 's#^\(CONFIG_UEFI_OS_LOADER_NAME=\).*$#\1\"\\\\EFI\\\\${ACRN_UEFI_OS_LOADER_DIR}\\\\${ACRN_UEFI_OS_LOADER_NAME}.efi\"#' ${B}/.config
+         sed -i -e 's#^CONFIG_UEFI_OS_LOADER_NAME=.*$##g' ${USED_ACRN_CONFIG}.config
+         echo 'CONFIG_UEFI_OS_LOADER_NAME="\\EFI\\${ACRN_UEFI_OS_LOADER_DIR}\\${ACRN_UEFI_OS_LOADER_NAME}.efi"' >> ${USED_ACRN_CONFIG}.config
     fi
 }
 
 do_compile () {
-    cd ${S}
-    oe_runmake
+    cd ${S}/..
+    oe_runmake hypervisor BOARD=${USED_ACRN_CONFIG} FIRMWARE=${ACRN_PLATFORM}
 }
 
 do_install () {
-    cd ${S}
-    oe_runmake install DESTDIR=${D}
+    if [ "${ACRN_PLATFORM}" = "uefi" ]; then
+        install -D -m 0755 ${B}/hypervisor/acrn.efi ${D}/${libdir}/acrn/acrn.efi
+    fi
 }
 
 do_deploy () {
