@@ -1,2 +1,0 @@
-require recipes-core/images/uos-image-common.inc
-require recipes-graphics/images/core-image-x11.bb

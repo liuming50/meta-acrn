@@ -1,5 +1,0 @@
-#!/bin/sh
-
-export HOSTTOOLS_CELADON="bc bison mkdosfs flex m4 mcopy msgfmt msgmerge openssl ps rsync sbsign sign-efi-sig-list truncate unzip whoami xgettext xz zip"
-BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE HOSTTOOLS_CELADON"
-PATH="$PATH:/sbin:/usr/sbin"

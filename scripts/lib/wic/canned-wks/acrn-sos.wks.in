@@ -1,0 +1,11 @@
+# short-description: Create an EFI disk image with systemd-boot
+# long-description: Creates a partitioned EFI disk image that the user
+# can directly dd to boot media. The selected bootloader is systemd-boot.
+# It also includes intel-microcode as an initrd for early update support.
+# Based on OE-core's systemd-bootdisk.wks file.
+
+part /boot --source bootimg-efi-acrn --sourceparams="loader=${EFI_PROVIDER},initrd=microcode.cpio,title=EFI ACRN Loader" --ondisk sda --label msdos --active --align 1024 --use-uuid
+
+part / --source rootfs --ondisk sda --fstype=ext4 --label platform --align 1024 --use-uuid
+
+bootloader --ptable gpt --timeout=5 --append="rw rootwait rootfstype=ext4 pci_devices_ignore=(0:18: 1) console=tty0 console=ttyS0 i915.nuclear_pageflip=1 ignore_loglevel no_timer_check consoleblank=0 i915.tsd_init=7 i915.tsd_delay=2000 i915.avail_planes_per_pipe=${ACRN_I915_AVAIL_PLANES_PER_PIPE} i915.domain_plane_owners=${ACRN_I915_DOMAIN_PLANE_OWNERS} i915.domain_scaler_owner=${ACRN_I915_DOMAIN_SCALER_OWNER} i915.enable_guc_loading=0 i915.enable_guc_submission=0 i915.enable_preemption=1 i915.context_priority_mode=2 i915.enable_gvt=1 i915.enable_initial_modeset=1 i915.enable_guc=0 hvlog=2M@0x1FE00000"

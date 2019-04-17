@@ -1,43 +1,43 @@
-# meta-acrn
-OpenEmbedded/Yocto BSP layer for ACRN hypervisor
+meta-acrn
+=========
+
+This an OpenEmbedded/Yocto layer providing recipes for installing the ACRN hypervisor.
+The layer is a rewrite of https://github.com/liuming50/meta-acrn.git by Ming Liu.
+
+Dependencies
+------------
+
+This layer depends on:
+
+| meta layer        | git repository                                 |
+|-------------------|------------------------------------------------|
+| poky              | https://git.yoctoproject.org/git/poky          |
+| meta-openembedded | http://cgit.openembedded.org/meta-openembedded |
+| meta-intel        | http://cgit.openembedded.org/meta-openembedded |
 
 
-# Dependencies
+Usage
+-----
+
+To create an image-recipe that produces an ACRN-Service-OS image one needs
+to configure local.conf as follows:
 
 ```
-URI: git://git.openembedded.org/openembedded-core.git
-branch: master
-revision: HEAD
+PREFERRED_PROVIDER_virtual/kernel = "linux-acrn"
 
-URI: git://git.openembedded.org/bitbake.git
-branch: master
-revision: HEAD
-
-URI: git://git.openembedded.org/meta-openembedded
-branch: master
-revision: HEAD
-
-URI: git://git.yoctoproject.org/meta-intel
-branch: master
-revision: HEAD
+EFI_PROVIDER = "systemd-boot"
+WKS_FILE = "acrn-sos.wic-in"
 ```
+and `inherit acrn-service-os` in said image-recipe.
 
+Similarly when building an ACRN-User-OS set the following in your local.conf:
+```
+PREFERRED_PROVIDER_virtual/kernel = "linux-acrn-uos"
 
-# Getting started
+IMAGE_FSTYPES = "wic"
+```
+In this case, nothing needs to change in image-recipe you want to bitbake.
 
-[meta-acrn-manifest README.md](https://github.com/liuming50/meta-acrn-manifest/blob/master/README.md)
-
-
-
-# Tested Hardware
-
-The following undergo regular basic testing with their respective MACHINE types.
-- APL-NUC
-
-
-# Submitting patches
-
-You are encouraged to fork the mirror on [meta-acrn](https://github.com/liuming50/meta-acrn.git)
-to share your patches.
-
-Layer Maintainer: [Ming Liu](<mailto:liu.ming50@gmail.com>)
+A tip is to read up on multiconfig in the Yocto manual and utilize it to
+create a setup that can build and include a User-OS image into your Service-OS
+image.

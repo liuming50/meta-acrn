@@ -17,15 +17,12 @@ FILES_${PN} += "${libdir}/acrn/* ${datadir}/acrn/*"
 
 USED_ACRN_CONFIG = "usedacrnconfig"
 
+ACRN_UEFI_ARCH ?= "${@['ia32', 'x64'][d.getVar('TARGET_ARCH') == 'x86_64']}"
+ACRN_UEFI_IMAGE_NAME ?= "boot${ACRN_UEFI_ARCH}"
+
 do_configure () {
     cd ${S}/arch/x86/configs/
     cp ${MACHINE}.config ${USED_ACRN_CONFIG}.config
-#    ln --force -s ${MACHINE} ${USED_ACRN_CONFIG}
-
-    if [ "${ACRN_PLATFORM}" = "uefi" ]; then
-         sed -i -e 's#^CONFIG_UEFI_OS_LOADER_NAME=.*$##g' ${USED_ACRN_CONFIG}.config
-         echo 'CONFIG_UEFI_OS_LOADER_NAME="\\EFI\\${ACRN_UEFI_OS_LOADER_DIR}\\${ACRN_UEFI_OS_LOADER_NAME}.efi"' >> ${USED_ACRN_CONFIG}.config
-    fi
 }
 
 do_compile () {
@@ -41,11 +38,8 @@ do_install () {
 
 do_deploy () {
     if [ "${ACRN_PLATFORM}" = "uefi" ]; then
-        install -m 0755 ${D}${libdir}/acrn/acrn.efi ${DEPLOYDIR}/acrn-${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi
-        ln -sf acrn-${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi ${DEPLOYDIR}/acrn-${ACRN_UEFI_IMAGE_NAME}-${MACHINE}.efi
-        ln -sf acrn-${ACRN_UEFI_IMAGE_NAME}-${MACHINE}-${DATETIME}.efi ${DEPLOYDIR}/acrn-${ACRN_UEFI_IMAGE_NAME}.efi
+        install -m 0755 ${D}${libdir}/acrn/acrn.efi ${DEPLOYDIR}/acrn-${ACRN_UEFI_IMAGE_NAME}.efi
     fi
 }
-do_deploy[vardepsexclude] = "DATETIME"
 
 addtask deploy after do_install before do_build
