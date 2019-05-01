@@ -252,3 +252,6 @@ HOSTTOOLS += "${HOSTTOOLS_CELADON}"
 
 # Use screen as the default terminal
 OE_TERMINAL = "screen"
+
+# Reset to Baidu so the Chinese developers could also access it. (Thanks for CCP!!)
+CONNECTIVITY_CHECK_URIS = "https://www.baidu.com/"
