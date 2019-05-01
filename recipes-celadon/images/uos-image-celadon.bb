@@ -81,12 +81,16 @@ do_buildclean() {
     fi
 }
 
-do_normalize_hostcc () {
+do_normalize_hosttools () {
     cd ${HOSTTOOLS_DIR}
     ln -sf gcc cc
+
+    if [ "$(realpath /bin/sh)" != "/bin/bash" ]; then
+        bberror "Celadon's envsetup.sh only complies with bash, please change your /bin/sh to be bash."
+    fi
 }
 
-addtask normalize_hostcc before do_configure
+addtask normalize_hosttools before do_configure
 
 do_compile () {
     unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
